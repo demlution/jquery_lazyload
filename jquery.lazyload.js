@@ -20,6 +20,7 @@
         var elements = this;
         var $container;
         var settings = {
+            handler         : null,
             threshold       : 0,
             failure_limit   : 0,
             event           : "scroll",
@@ -108,6 +109,9 @@
                             var original = $self.attr("data-" + settings.data_attribute);
                             $self.hide();
                             if ($self.is("img")) {
+                                if (typeof settings.handler == 'function') {
+                                    original = settings.handler(original);
+                                }
                                 $self.attr("src", original);
                             } else {
                                 $self.css("background-image", "url('" + original + "')");
