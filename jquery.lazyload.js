@@ -13,7 +13,9 @@
  *
  */
 
-(function($, window, document, undefined) {
+(function(window, document, undefined){
+
+var load_jquery_lazyload = function ($, window, document, undefined) {
     var $window = $(window);
 
     $.fn.lazyload = function(options) {
@@ -241,4 +243,26 @@
         "left-of-fold"   : function(a) { return !$.rightoffold(a, {threshold : 0}); }
     });
 
-})(jQuery, window, document);
+};
+
+
+var load_image = function () {
+    var images, image, original;
+    if (typeof jQuery != 'undefined') {
+        load_jquery_lazyload(jQuery, window, document);
+    }
+    else {
+        images = document.getElementsByTagName('img');
+        for (var i = 0; i < images.length; i++) {
+            image = images[i];
+            original = image.getAttribute('data-original');
+            if (original) {
+                image.setAttribute('src', original);
+            }
+        }
+    }
+}
+
+load_image();
+
+})(window, document);
